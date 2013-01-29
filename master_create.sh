@@ -26,6 +26,8 @@ if [ $answer != y ] ; then
 	echo "Exiting"
 	exit
 fi
+git config --global user.name $USER
+git config --global user.email $USER@$domain
 ssh-keygen -t rsa -C "Git Master@$domain"
 cat ~/.ssh/id_rsa.pub > ~/git/pubkeys/authorized_keys
 cd ~/git/pubkeys && git add .
@@ -42,12 +44,12 @@ openssl x509 -req -in server.csr -signkey ssl.key -out ssl.cert
 echo "Cert and Key generated"
 echo "Cleaning up"
 rm server.csr
-rm server.key.org
+rm server.key
 echo "Commiting"
 git add .
 git commit -am "Initial Commit"
 echo "Git commited"
-cp -R ~/IRCSetupScripts/config/* ~/git/config/*
+cp -R ~/IRCSetupScripts/config/* ~/git/config
 cd ~/git/config/
 git add .
 git commit -am "Adding in default configs"
