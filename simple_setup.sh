@@ -46,10 +46,10 @@ git=y 						# This setting is default y, if set to n will skip over any git move
 
 # Below are the network specific settings, if bypass is not set to y they will have no effect
 
-mname=snoonet 				# Name of the Master Git's user, example: git 
-mnetwork=wa.snoonet.org		# IP or Domain of the Master Git, example: 184.164.131.180 or git.network.org
-ircname=Snoonet 			# Name of the IRC Network, example: OSPnet, Snoonet, EsperNet
-domain=snoonet.org 			# Root Domain for the IRC Network, example: ospnet.org, snoonet.com, esper.net
+mname=						# Name of the Master Git's user, example: git 
+mnetwork=					# IP or Domain of the Master Git, example: 184.164.131.180 or git.network.org
+ircname=					# Name of the IRC Network, example: OSPnet, Snoonet, EsperNet
+domain=						# Root Domain for the IRC Network, example: ospnet.org, snoonet.com, esper.net
 
 #########################################################
 # Actual Script
