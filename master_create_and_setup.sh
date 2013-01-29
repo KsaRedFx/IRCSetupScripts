@@ -133,6 +133,18 @@ if [ $que = 3 ] ; then
 			exit
 		fi
 
+		echo ""
+		echo "Please place the below key in authorized_keys on the remote server"
+		echo ""
+		cat ~/.ssh/id_rsa.pub
+		echo ""
+		echo "Is this complete? (y/n)"
+		read answer
+		if [ $answer != y ] ; then
+			echo "Exiting"
+			exit
+		fi
+
 	fi
 	if [ $info != y ] ; then
 
