@@ -164,7 +164,7 @@ if [ $git = y ] ; then
 	echo "Authorized_keys replaced"
 	echo "Setting up git and hooks file"
 	git config --global 'receive.denyCurrentBranch' ignore
-	echo "#"\!"/bin/sh" > ~/git/config/.git/hooks/post-receive &&\
+	echo "#"\!"/bin/bash" > ~/git/config/.git/hooks/post-receive &&\
 	echo "cd .." >> ~/git/config/.git/hooks/post-receive &&\
 	echo "env -i git reset --hard" >> ~/git/config/.git/hooks/post-receive
 	echo "Git setup and hooks file created"

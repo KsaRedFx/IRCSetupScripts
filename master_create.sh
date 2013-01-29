@@ -5,12 +5,11 @@ cd ~/git/config && git init
 cd ~/git/pubkeys && git init
 cd ~
 echo "Creating snyc file"
-echo "#\!/bin/bash" > sync.sh
-echo "repos=(config pubkeys)" >> sync.sh
+echo "#"\!"/bin/bash" > sync.sh
 echo "" >> sync.sh
-echo "for repo in \${repos[*]}" >> sync.sh
+echo "for repo in config pubkeys" >> sync.sh
 echo "do" >> sync.sh
-echo "        cd ~/git/$repo" >> sync.sh
+echo "        cd ~/git/\$repo" >> sync.sh
 echo "        git add ." >> sync.sh
 echo "        git commit -am 'Sync Script'" >> sync.sh
 echo "#       git push pinwheel master" >> sync.sh
