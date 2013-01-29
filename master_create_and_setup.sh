@@ -86,6 +86,21 @@ do
 	git add .
 	git commit -am 'Snyc Update'
 done" > sync
+
+	echo ""
+	echo "#####################################################################"
+	echo "Generating SSL Certificate, Key, and DH Params"
+	echo "You will be asked several questions, so pay attention"
+	echo "#####################################################################"
+	echo ""
+	openssl dHParam -outform PEM -out DH.pem 2048
+	openssl rsaparam -out rsaparam.pem 2048
+	openssl req -x509 -newkey rsa:rsaparam.pem -keyout rsa_ssl.key -out rsa_ssl.crt -config SSL$CONF
+	openssl req -out rsa_cert.csr -keyout ssl.key -newkey rsa:RSAPARAM.PEM -config SSL$CONF
+	openssl ca -in rsa_cert.csr -out ssl.cert
+
+
+
 fi
 
 if [ $que = 2 ] ; then
