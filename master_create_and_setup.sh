@@ -77,20 +77,18 @@ if [ $que = 1 ] ; then
 	echo "Generating syncronisation script"
 echo "#"\!"/bin/bash
 
-for leaves in
-do
-	sh .confs.sh
-	rsync -vue ~/config/leaves/user.conf ssh user@domain:ircd/etc/server.conf 
-	rsync -vue ~/config/keys/authorized_keys ssh user@domain:.ssh/authorized_keys
-	cd ~/.repo
-	git add .
-	git commit -am 'Snyc Update'
-done" > sync
+sh .confs.sh
+
+
+
+cd ~/.repo
+git add .
+git commit -am 'Snyc Update" > sync
 echo "#"\!"/bin/bash
 
 for item in ircd.motd ircd.conf operators.conf general.conf
 do
-	rsync -vue ~/config/base/$item ssh user@domain:ircd/etc/$item
+	
 done"
 
 	echo ""
@@ -194,9 +192,9 @@ if [ $que = 3 ] ; then
 	echo "Continuing"
 
 	echo "Editing the sync script"
-	sed -i "6irsync -vue ~/config/leaves/$name.conf ssh $user@$network:ircd/etc/server.conf" sync
+	sed -i "5irsync -vue ~/config/leaves/$name.conf ssh $user@$network:ircd/etc/server.conf" sync
 	sed -i "5irsync -vue ~/config/base/\$item ssh $user@$network:ircd/etc" .confs.sh
-	sed -i "6irsync -vue ~/config/keys/authorized_keys ssh $user@$network:.ssh/authorized_keys" sync
+	sed -i "5irsync -vue ~/config/keys/authorized_keys ssh $user@$network:.ssh/authorized_keys" sync
 
 	echo "Preparing the IRCD install"
 	echo "git clone git://github.com/snoonetIRC/charybdis.git && cd charybdis" > inst.sh
