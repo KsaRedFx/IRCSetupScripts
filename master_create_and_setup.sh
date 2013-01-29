@@ -79,8 +79,11 @@ echo "#"\!"/bin/bash
 
 for leaves in
 do
+	for item in ircd.motd ircd.conf operators.conf general.conf
+	do
+		rsync -vue ~/config/base/$item ssh user@domain:ircd/etc/$item
+	done
 	rsync -vue ~/config/leaves/user.conf ssh user@domain:ircd/etc/server.conf 
-	rsync -vue ~/config/base/* ssh user@domain:ircd/etc
 	rsync -vue ~/config/keys/authorized_keys ssh user@domain:.ssh/authorized_keys
 	cd ~/.repo
 	git add .
@@ -93,12 +96,14 @@ done" > sync
 	echo "You will be asked several questions, so pay attention"
 	echo "#####################################################################"
 	echo ""
-	openssl dHParam -outform PEM -out DH.pem 2048
-	openssl rsaparam -out rsaparam.pem 2048
-	openssl req -x509 -newkey rsa:rsaparam.pem -keyout rsa_ssl.key -out rsa_ssl.crt -config SSL$CONF
-	openssl req -out rsa_cert.csr -keyout ssl.key -newkey rsa:RSAPARAM.PEM -config SSL$CONF
-	openssl ca -in rsa_cert.csr -out ssl.cert
 
+	cd ~/config/base
+
+	echo "Generating self-signed certificate ... "
+	openssl req -x509 -nodes -newkey rsa:1024 -keyout ssl.key -out ssl.cert
+
+	echo "Generating Diffie-Hellman file for secure SSL/TLS negotiation ... "
+	openssl dhparam -out dh.pem 2048
 
 
 fi
