@@ -29,6 +29,8 @@
 data=y
 if [ $data = "y" ] ; then 
 echo "Checks completed"
+else
+	exit
 fi
 #########################################################
 # Hardcodes, Bypass the constant questions
