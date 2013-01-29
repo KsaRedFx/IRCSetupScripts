@@ -106,7 +106,6 @@ done"
 	echo "Generating Diffie-Hellman file for secure SSL/TLS negotiation ... "
 	openssl dhparam -out dh.pem 2048
 
-
 fi
 
 if [ $que = 2 ] ; then

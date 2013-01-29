@@ -61,18 +61,13 @@ git commit -am "Initial Commit"
 cd ~/git/config
 echo "Generating a key and certificate"
 echo ""
-echo "#############################"
-echo "Set the password to 'super'"
-echo "#############################"
-openssl genrsa -des3 -out server.key 4096
-echo "Set the information below as requested"
-openssl req -new -key server.key -out server.csr
-echo ""
-echo "#############################"
-echo "The password is 'super'"
-echo "#############################"
-openssl rsa -in server.key -out ssl.key
-openssl x509 -req -in server.csr -signkey ssl.key -out ssl.cert
+
+echo "Generating self-signed certificate ... "
+openssl req -x509 -nodes -newkey rsa:1024 -keyout ssl.key -out ssl.cert
+
+echo "Generating Diffie-Hellman file for secure SSL/TLS negotiation ... "
+openssl dhparam -out dh.pem 2048
+
 echo "Cert and Key generated"
 echo "Cleaning up"
 rm server.csr
