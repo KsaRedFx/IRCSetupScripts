@@ -8,7 +8,7 @@ echo "Creating snyc file"
 echo "#\!/bin/bash" > sync.sh
 echo "repos=(config pubkeys)" >> sync.sh
 echo "" >> sync.sh
-echo "for repo in ${repos[*]}" >> sync.sh
+echo "for repo in \${repos[*]}" >> sync.sh
 echo "do" >> sync.sh
 echo "        cd ~/git/$repo" >> sync.sh
 echo "        git add ." >> sync.sh
