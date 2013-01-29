@@ -153,80 +153,81 @@ if [ $que = 3 ] ; then
 		fi
 
 	fi
-		cd ~
 
-		echo "Continuing"
+	cd ~
 
-		echo "Editing the sync script"
-		sed -i '5irsync -vue ~/config/leaves/$name.conf ssh $user@$network:ircd/etc/server.conf' sync
-		sed -i '5irsync -vue ~/config/base/* ssh $user@$network:ircd/etc' sync
-		sed -i '5irsync -vue ~/config/keys/authorized_keys ssh $user@$network:.ssh/authorized_keys' sync
+	echo "Continuing"
 
-		echo "Preparing the IRCD install"
-		echo "git clone git://github.com/snoonetIRC/charybdis.git && cd charybdis" > inst.sh
-		echo './configure --prefix="$PWD/ircd" --enable-epoll --enable-openssl --enable-ipv6 --disable-assert' >> inst.sh
-		echo "make" >> inst.sh
-		echo "make install" >> inst.sh
-		echo "rm inst.sh" >> inst.sh
-		rsync -vue ~/inst ssh $user@$network:inst
-		ssh $user@network sh inst
-		echo "Install of IRCD Complete"
+	echo "Editing the sync script"
+	sed -i '5irsync -vue ~/config/leaves/$name.conf ssh $user@$network:ircd/etc/server.conf' sync
+	sed -i '5irsync -vue ~/config/base/* ssh $user@$network:ircd/etc' sync
+	sed -i '5irsync -vue ~/config/keys/authorized_keys ssh $user@$network:.ssh/authorized_keys' sync
 
-		echo "Setting up Config File"
+	echo "Preparing the IRCD install"
+	echo "git clone git://github.com/snoonetIRC/charybdis.git && cd charybdis" > inst.sh
+	echo './configure --prefix="$PWD/ircd" --enable-epoll --enable-openssl --enable-ipv6 --disable-assert' >> inst.sh
+	echo "make" >> inst.sh
+	echo "make install" >> inst.sh
+	echo "rm inst.sh" >> inst.sh
+	rsync -vue ~/inst ssh $user@$network:inst
+	ssh $user@network sh inst
+	echo "Install of IRCD Complete"
 
-echo "listen {" > ~/config/leaves/$name.conf
-echo "    port = 5000, 6667 .. 6697;" >> ~/config/leaves/$name.conf
-echo "    sslport = 6697;" >> ~/config/leaves/$name.conf
-echo "};" >> ~/config/leaves/$name.conf
-echo "" >> ~/config/leaves/$name.conf
-echo "serverinfo {" >> ~/config/leaves/$name.conf
-echo "    name = \"$name.$domain\";" >> ~/config/leaves/$name.conf
-echo "" >> ~/config/leaves/$name.conf
-echo "    sid = \"<unique digit, letter, letter>\";" >> ~/config/leaves/$name.conf
-echo "" >> ~/config/leaves/$name.conf
-echo "    description = \"$ircname leaf node.\";" >> ~/config/leaves/$name.conf
-echo "" >> ~/config/leaves/$name.conf
-echo "    network_name = \"$ircname.\";" >> ~/config/leaves/$name.conf
-echo "    network_desc = \"$ircname network.\";" >> ~/config/leaves/$name.conf
-echo "" >> ~/config/leaves/$name.conf
-echo "    hub = no;" >> ~/config/leaves/$name.conf
-echo "" >> ~/config/leaves/$name.conf
-echo "    vhost = \"$network\";" >> ~/config/leaves/$name.conf
-echo "" >> ~/config/leaves/$name.conf
-echo "    ssl_private_key = \"etc/ssl.key\";" >> ~/config/leaves/$name.conf
-echo "    ssl_cert = \"etc/ssl.cert\";" >> ~/config/leaves/$name.conf
-echo "    ssh_dh_params = \"etc/dh.pem\";" >> ~/config/leaves/$name.conf
-echo "    ssld_count = 5;" >> ~/config/leaves/$name.conf
-echo "" >> ~/config/leaves/$name.conf
-echo "    default_max_clients = 1000;" >> ~/config/leaves/$name.conf
-echo "" >> ~/config/leaves/$name.conf
-echo "    nicklen = 30;" >> ~/config/leaves/$name.conf
-echo "};" >> ~/config/leaves/$name.conf
-echo "" >> ~/config/leaves/$name.conf
-echo "admin {" >> ~/config/leaves/$name.conf
-echo "    name = \"$ircname admin.\";" >> ~/config/leaves/$name.conf
-echo "    description = \"$ircname administrator.\";" >> ~/config/leaves/$name.conf
-echo "    email = \"support@$domain\";" >> ~/config/leaves/$name.conf
-echo "};" >> ~/config/leaves/$name.conf
-echo "" >> ~/config/leaves/$name.conf
-echo "connect \"<hub name>.$domain\" {" >> ~/config/leaves/$name.conf
-echo "    host = \"<hub IP>\";" >> ~/config/leaves/$name.conf
-echo "    send_password = \"<password hub is expecting>\";" >> ~/config/leaves/$name.conf
-echo "    accept_password = \"<password your new server will expect from hub>\";" >> ~/config/leaves/$name.conf
-echo "    port = 22223;" >> ~/config/leaves/$name.conf
-echo "    hub_mask = \"*\";" >> ~/config/leaves/$name.conf
-echo "    class = \"server\";" >> ~/config/leaves/$name.conf
-echo "    flags = autoconn, compressed, topicburst, ssl;" >> ~/config/leaves/$name.conf
-echo "};" >> ~/config/leaves/$name.conf
+	echo "Setting up Config File"
 
-		echo ""
-		echo "####################################################################"
-		echo "Config file setup and placed in ~/config/leaves/$name.conf"
-		echo "Please edit this file accordingly then run the sync option"
-		echo "####################################################################"
+	echo "listen {" > ~/config/leaves/$name.conf
+	echo "    port = 5000, 6667 .. 6697;" >> ~/config/leaves/$name.conf
+	echo "    sslport = 6697;" >> ~/config/leaves/$name.conf
+	echo "};" >> ~/config/leaves/$name.conf
+	echo "" >> ~/config/leaves/$name.conf
+	echo "serverinfo {" >> ~/config/leaves/$name.conf
+	echo "    name = \"$name.$domain\";" >> ~/config/leaves/$name.conf
+	echo "" >> ~/config/leaves/$name.conf
+	echo "    sid = \"<unique digit, letter, letter>\";" >> ~/config/leaves/$name.conf
+	echo "" >> ~/config/leaves/$name.conf
+	echo "    description = \"$ircname leaf node.\";" >> ~/config/leaves/$name.conf
+	echo "" >> ~/config/leaves/$name.conf
+	echo "    network_name = \"$ircname.\";" >> ~/config/leaves/$name.conf
+	echo "    network_desc = \"$ircname network.\";" >> ~/config/leaves/$name.conf
+	echo "" >> ~/config/leaves/$name.conf
+	echo "    hub = no;" >> ~/config/leaves/$name.conf
+	echo "" >> ~/config/leaves/$name.conf
+	echo "    vhost = \"$network\";" >> ~/config/leaves/$name.conf
+	echo "" >> ~/config/leaves/$name.conf
+	echo "    ssl_private_key = \"etc/ssl.key\";" >> ~/config/leaves/$name.conf
+	echo "    ssl_cert = \"etc/ssl.cert\";" >> ~/config/leaves/$name.conf
+	echo "    ssh_dh_params = \"etc/dh.pem\";" >> ~/config/leaves/$name.conf
+	echo "    ssld_count = 5;" >> ~/config/leaves/$name.conf
+	echo "" >> ~/config/leaves/$name.conf
+	echo "    default_max_clients = 1000;" >> ~/config/leaves/$name.conf
+	echo "" >> ~/config/leaves/$name.conf
+	echo "    nicklen = 30;" >> ~/config/leaves/$name.conf
+	echo "};" >> ~/config/leaves/$name.conf
+	echo "" >> ~/config/leaves/$name.conf
+	echo "admin {" >> ~/config/leaves/$name.conf
+	echo "    name = \"$ircname admin.\";" >> ~/config/leaves/$name.conf
+	echo "    description = \"$ircname administrator.\";" >> ~/config/leaves/$name.conf
+	echo "    email = \"support@$domain\";" >> ~/config/leaves/$name.conf
+	echo "};" >> ~/config/leaves/$name.conf
+	echo "" >> ~/config/leaves/$name.conf
+	echo "connect \"<hub name>.$domain\" {" >> ~/config/leaves/$name.conf
+	echo "    host = \"<hub IP>\";" >> ~/config/leaves/$name.conf
+	echo "    send_password = \"<password hub is expecting>\";" >> ~/config/leaves/$name.conf
+	echo "    accept_password = \"<password your new server will expect from hub>\";" >> ~/config/leaves/$name.conf
+	echo "    port = 22223;" >> ~/config/leaves/$name.conf
+	echo "    hub_mask = \"*\";" >> ~/config/leaves/$name.conf
+	echo "    class = \"server\";" >> ~/config/leaves/$name.conf
+	echo "    flags = autoconn, compressed, topicburst, ssl;" >> ~/config/leaves/$name.conf
+	echo "};" >> ~/config/leaves/$name.conf
 
-		nano ~/config/leaves/$name.conf
+	echo ""
+	echo "####################################################################"
+	echo "Config file setup and placed in ~/config/leaves/$name.conf"
+	echo "Please edit this file accordingly then run the sync option"
+	echo "####################################################################"
 
-		sh ~/sync
+	nano ~/config/leaves/$name.conf
+
+	sh ~/sync
 
 fi
