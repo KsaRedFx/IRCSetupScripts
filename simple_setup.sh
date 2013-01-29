@@ -1,1 +1,1 @@
-/home/ksaredfx/simple_setup.sh
+/home/ksaredfx/test/simple_setup.sh

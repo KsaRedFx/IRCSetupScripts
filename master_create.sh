@@ -1,1 +1,1 @@
-/home/ksaredfx/master_create.sh
+/home/ksaredfx/test/master_create.sh
