@@ -152,6 +152,7 @@ if [ $que = 3 ] ; then
 			exit
 		fi
 
+	fi
 		cd ~
 
 		echo "Continuing"
@@ -224,5 +225,8 @@ echo "};" >> ~/config/leaves/$name.conf
 		echo "Please edit this file accordingly then run the sync option"
 		echo "####################################################################"
 
-	fi
+		nano ~/config/leaves/$name.conf
+
+		sh ~/sync
+
 fi
