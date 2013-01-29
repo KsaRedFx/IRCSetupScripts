@@ -16,7 +16,7 @@ echo "        git commit -am 'Sync Script'" >> sync.sh
 echo "#       git push pinwheel master" >> sync.sh
 echo "done" >> sync.sh
 echo "Sync file created"
-echo "Generating Key"
+
 echo "Please enter the irc network's domain, example: ospnet.org"
 read domain
 echo "The irc network's domain is $domain"
@@ -28,17 +28,24 @@ if [ $answer != y ] ; then
 fi
 git config --global user.name $USER
 git config --global user.email $USER@$domain
+echo "Generating Key"
 ssh-keygen -t rsa -C "Git Master@$domain"
 cat ~/.ssh/id_rsa.pub > ~/git/pubkeys/authorized_keys
 cd ~/git/pubkeys && git add .
 git commit -am "Initial Commit"
 cd ~/git/config
 echo "Generating a key and certificate"
+echo ""
+echo "#############################"
 echo "Set the password to 'super'"
+echo "#############################"
 openssl genrsa -des3 -out server.key 4096
 echo "Set the information below as requested"
 openssl req -new -key server.key -out server.csr
+echo ""
+echo "#############################"
 echo "The password is 'super'"
+echo "#############################"
 openssl rsa -in server.key -out ssl.key
 openssl x509 -req -in server.csr -signkey ssl.key -out ssl.cert
 echo "Cert and Key generated"
