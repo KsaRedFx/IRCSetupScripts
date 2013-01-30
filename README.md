@@ -9,7 +9,7 @@ This is a simple system for setting up your own IRC Network with syncronised fil
 There are two methods for setting up a IRC Network...
  
  
-~ Warning! This does NOT Setup the Hub or SSL Certificates yet ~
+~ Warning! This does NOT Setup the Hub or Services *Yet* ~
     
     
     
