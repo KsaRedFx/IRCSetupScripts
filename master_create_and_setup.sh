@@ -208,7 +208,7 @@ if [ $que = 3 ] ; then
 	echo "Setting up Config File"
 
 	echo "listen {" > ~/config/leaves/$name.conf
-	echo "    port = 5000, 6667 .. 6697;" >> ~/config/leaves/$name.conf
+	echo "    port = 5000, 6667 .. 6669;" >> ~/config/leaves/$name.conf
 	echo "    sslport = 6697;" >> ~/config/leaves/$name.conf
 	echo "};" >> ~/config/leaves/$name.conf
 	echo "" >> ~/config/leaves/$name.conf
